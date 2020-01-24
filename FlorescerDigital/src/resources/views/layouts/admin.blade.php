@@ -41,11 +41,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a>
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.projects.index')}}"> Projetos </a>
+                            <a class="nav-link" href="{{ route('admin.users.index')}}"> Usuários</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -69,7 +69,14 @@
                 </div>
             </div>
         </nav>
-
+         @if(Session::has('message'))
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{Session::get('message')}}
+            </div>
+        @endif
         <div class="row">
             <div class="container">
                 @yield('content')

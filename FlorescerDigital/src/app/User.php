@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -10,13 +9,16 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const ROLE_USER = 1;
+    const ROLE_ADMIN = 2;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'telefone', 'instagram'
+        'name', 'email', 'password', 'telefone', 'instagram', 'role'
     ];
 
     /**
@@ -36,4 +38,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getUserType($type)
+    {
+        return $type == User::ROLE_USER ? $type : User::ROLE_ADMIN;
+    }
+
+    public function projects(){
+        return $this->belongsTo('App\Project');
+    }
 }
