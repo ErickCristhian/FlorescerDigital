@@ -26,7 +26,9 @@
                 <td>{{ $project->description }}</td>
 
                 <td>
-                    <a href="{{route('admin.projects.edit',['project' => $project->id])}}">Editar</a> |
+                    @if (\Auth::user()->role == 1? false: true)
+                        <a href="{{route('admin.projects.edit',['project' => $project->id])}}">Editar</a> |
+                    @endif
                     <a href="{{route('admin.projects.show',['project' => $project->id])}}">Ver</a>
                 </td>
             </tr>

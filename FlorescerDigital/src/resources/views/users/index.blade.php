@@ -1,3 +1,5 @@
+
+
 @extends('layouts.app')
 
 @section('content')
@@ -28,7 +30,9 @@
                 <td>{{ $user->instagram }}</td>
                 <td>{{ $user->role == 1 ? "Usuário": "Admin" }}</td>
                 <td>
-                    <a href="{{route('admin.users.edit',['user' => $user->id])}}">Editar</a> |
+                    @if (\Auth::user()->role == 1? false: true)
+                        <a href="{{route('admin.users.edit',['user' => $user->id])}}">Editar</a> |
+                    @endif
                     <a href="{{route('admin.users.show',['user' => $user->id])}}">Ver</a>
                 </td>
             </tr>
@@ -36,3 +40,4 @@
         </tbody>
     </table>
 @endsection
+

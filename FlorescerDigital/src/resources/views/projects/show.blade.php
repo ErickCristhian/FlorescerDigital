@@ -2,12 +2,14 @@
 
 @section('content')
     <h3>Ver Projeto</h3>
-    <a class="btn btn-primary" href="{{ route('admin.projects.edit',['project' => $project->id]) }}">Editar</a>
-    <a class="btn btn-danger" href="{{ route('admin.projects.destroy',['project' => $project->id]) }}"
-        onclick="event.preventDefault();if(confirm('Deseja excluir este item?')){document.getElementById('form-delete').submit();}">Excluir</a>
+    @if (\Auth::user()->role == 1? false: true)
+        <a class="btn btn-primary" href="{{ route('admin.projects.edit',['project' => $project->id]) }}">Editar</a>
+        <a class="btn btn-danger" href="{{ route('admin.projects.destroy',['project' => $project->id]) }}"
+            onclick="event.preventDefault();if(confirm('Deseja excluir este item?')){document.getElementById('form-delete').submit();}">Excluir</a>
 
-    {{Form::open(['route' => ['admin.projects.destroy',$project->id],'method' => 'DELETE', 'id' => 'form-delete'])}}
-    {{Form::close()}}
+        {{Form::open(['route' => ['admin.projects.destroy',$project->id],'method' => 'DELETE', 'id' => 'form-delete'])}}
+        {{Form::close()}}
+    @endif
     <br/><br/>
 
     <table class="table table-striped table-dark">
